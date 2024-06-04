@@ -21,5 +21,3 @@ def classify_vanilla(image_path):
     predicted_class = label_encoder.inverse_transform(predicted_class_encoded)
 
     print(f'Prediksi mata: {predicted_class}')
-
-# classify_vanilla('C:/Users/manzi/VSCoding/0_pcd/dataset/normal/NL_004.png')
