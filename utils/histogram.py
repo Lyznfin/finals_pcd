@@ -1,7 +1,7 @@
 import numpy as np
 from skimage.io import imread
-from .grayscale import to_gray
-from .visualize import visualize
+from grayscale import to_gray
+from visualize import visualize
 
 def histogram_equalization(image):
     """
@@ -15,7 +15,7 @@ def histogram_equalization(image):
     rows, cols = image.shape
 
     # calculate the histogram
-    histogram, bins = np.histogram(image.flatten(), bins=256, range=(0, 256)) # Pixel count for each of the 256 possible values in the grayscale image
+    histogram, bins = np.histogram(image.flatten(), bins=256, range=(0, 256)) # pixel count for each of the 256 possible values in the grayscale image
 
     # calculate the cumulative distribution function
     cdf = histogram.cumsum()
@@ -36,9 +36,23 @@ def histogram_equalization(image):
 
     return equalized_image
 
+def compute_histogram(image):
+    histogram = np.zeros(256, dtype=np.uint8)
+    rows, cols = image.shape
+    gray_image = np.uint8(image * 255)
+    for i in range(rows):
+        for j in range(cols):
+            histogram[gray_image[i][j]] = histogram[gray_image[i][j]] + 1
+    n = rows * cols
+    for i in range(rows):
+        histogram[i]/=n
+    
+    return histogram       
+
 if __name__ == "__main__":
     image = imread('C:/Users/manzi/VSCoding/cataract_classification/image_test/image_cataract_2.png')
     image = to_gray(image)
+    compute_histogram(image)
 
     equalized_image = histogram_equalization(image)
     visualize(image, equalized_image)
