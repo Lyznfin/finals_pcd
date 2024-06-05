@@ -1,7 +1,7 @@
 import numpy as np
 from skimage.io import imread
-from grayscale import to_gray
-from visualize import visualize
+from .grayscale import to_gray
+from .visualize import visualize
 
 def histogram_equalization(image):
     """
