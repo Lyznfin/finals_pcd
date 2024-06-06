@@ -55,7 +55,7 @@ class CoOccurance:
         rows, cols = gray_image.shape
 
         for row in range(rows):
-            for col in range(cols):
+            for col in range(cols - 1):
                 new_row = row + dy
                 new_col = col + dx
                 if 0 <= new_row < rows and 0 <= new_col < cols:

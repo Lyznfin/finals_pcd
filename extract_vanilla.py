@@ -3,6 +3,7 @@ from skimage.io import imread
 from skimage.transform import resize
 
 from utils.grayscale import to_gray
+from utils.visualize import visualize
 from utils.histogram import histogram_equalization
 
 from glcm.experiment_classes import CoOccurance, ExtractFeatures
@@ -13,14 +14,18 @@ extractor = ExtractFeatures()
 def extract(image_path):
     image = imread(image_path)
     gray_image = to_gray(image)
-    gray_image = resize(gray_image, (256, 256), anti_aliasing=True)
-    # gray_image = histogram_equalization(gray_image)
-    gray_image = np.uint8(gray_image * 255)
+    visualize(image, gray_image)
+    rows, cols = gray_image.shape
+    resized_gray_image = resize(gray_image, (rows / 6, cols / 6), anti_aliasing=True)
+    visualize(gray_image, resized_gray_image)
+    # histographed = histogram_equalization(resized_gray_image)
+    # visualize(resized_gray_image, histographed)
+    resized_gray_image = np.uint8(resized_gray_image * 255)
 
-    glcm_0 = co.deg_0(gray_image)
-    glcm_45 = co.deg_45(gray_image)
-    glcm_90 = co.deg_90(gray_image)
-    glcm_135 = co.deg_135(gray_image)
+    glcm_0 = co.deg_0(resized_gray_image)
+    glcm_45 = co.deg_45(resized_gray_image)
+    glcm_90 = co.deg_90(resized_gray_image)
+    glcm_135 = co.deg_135(resized_gray_image)
 
     feature_0 = extractor.extract_all(glcm_0)
     feature_45 = extractor.extract_all(glcm_45)
