@@ -10,7 +10,7 @@ git clone https://github.com/Lyznfin/finals_pcd
 ```
 2. Change directory
 ``` 
-cd dip_finals
+cd finals_pcd
 ```
 3. Set up a virtual environment and activate it (optional)
 ``` 
